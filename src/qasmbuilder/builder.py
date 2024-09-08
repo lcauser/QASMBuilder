@@ -26,63 +26,61 @@ class Builder:
 
     ### Single body gates
     # Redundancy: each gate addition is basically the same, so lets streamline it.
-    def _one_qubit_gate(self, qasm:str, qubit: int, gate: str):
+    def _one_qubit_gate(self, qubit: int, gate: str):
         self._check_qubit(qubit)
         self.qasm += f"{gate} q[{qubit}]; \n"
 
-    def x(self, qasm: str, qubit: int):
+    def x(self, qubit: int):
         """
         Add an X gate at a qubit.
         """
-        self._one_qubit_gate(qasm, qubit, "x")
+        self._one_qubit_gate(qubit, "x")
     
-    def y(self, qasm: str, qubit: int):
+    def y(self, qubit: int):
         """
         Add a Y gate at a qubit.
         """
-        self._one_qubit_gate(qasm, qubit, "y")
+        self._one_qubit_gate(qubit, "y")
     
-    def z(self, qasm: str, qubit: int):
+    def z(self, qubit: int):
         """
         Add a Z gate at a qubit.
         """
-        self._one_qubit_gate(qasm, qubit, "z")
+        self._one_qubit_gate(qubit, "z")
     
-    def hadamard(self, qasm: str, qubit: int):
+    def hadamard(self, qubit: int):
         """
         Add a Hadamard gate at a qubit.
         """
-        self._one_qubit_gate(qasm, qubit, "h")
+        self._one_qubit_gate(qubit, "h")
 
-    def rx(self, qasm: str, qubit: int, theta: float = np.pi):
+    def rx(self, qubit: int, theta: float = np.pi):
         """
         A an X-rotation gate at a qubit. The angle of the rotation is theta.
         """
-        self._one_qubit_gate(qasm, qubit, f"rx({theta})")
+        self._one_qubit_gate(qubit, f"rx({theta})")
     
-    def ry(self, qasm: str, qubit: int, theta: float = np.pi):
+    def ry(self, qubit: int, theta: float = np.pi):
         """
         A a Y-rotation gate at a qubit. The angle of the rotation is theta.
         """
-        self._one_qubit_gate(qasm, qubit, f"ry({theta})")
+        self._one_qubit_gate(qubit, f"ry({theta})")
     
-    def rz(self, qasm: str, qubit: int, theta: float = np.pi):
+    def rz(self, qubit: int, theta: float = np.pi):
         """
         A a Z-rotation gate at a qubit. The angle of the rotation is theta.
         """
-        self._one_qubit_gate(qasm, qubit, f"rz({theta})")
+        self._one_qubit_gate(qubit, f"rz({theta})")
     
 
     ### Two qubit gates
     # Redundancy: each gate addition is basically the same, so lets streamline it.
-    def _two_qubit_gate(self, qasm:str, q1: int, q2: int, gate: str):
+    def _two_qubit_gate(self, q1: int, q2: int, gate: str):
         self._check_qubit(q1) and self._check_qubit(q2)
         self.qasm += f"{gate} q[{q1}] q[{q2}]; \n"
     
-    def cnot(self, qasm: str, control: int, target: int):
+    def cnot(self, control: int, target: int):
         """
         Add a CNOT gate at a control qubit and target qubit.
         """
-        self._two_qubit_gate(qasm, control, target, "cx")
-    
-
+        self._two_qubit_gate( control, target, "cx")
