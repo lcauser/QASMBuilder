@@ -18,6 +18,11 @@ class Builder:
         self.qasm += f"bit[{self.num_cbits}] c; \n\n"
 
 
+    # Saving 
+    def save(self, filename):
+        with open(filename, "w") as f:
+            f.write(self.qasm)
+
     # Checking that the qubit lives within the register 
     def _check_qubit(self, qubit: int):
         if qubit >= 0 and qubit < self.num_qubits:
@@ -84,3 +89,28 @@ class Builder:
         Add a CNOT gate at a control qubit and target qubit.
         """
         self._two_qubit_gate( control, target, "cx")
+
+    def rzz(self, q1: int, q2: int, theta: float = np.pi):
+        """
+        Add a ZZ-rotation gate between two qubits. Specify angle theta.
+        """
+        self.cnot(q1, q2)
+        self.rz(q2, theta)
+        self.cnot(q1, q2)
+
+
+    ### Measurements 
+    def measure(self, q: int):
+        """
+        Measure a qubit.
+        """
+        self._check_qubit(q)
+        self.qasm += f"bit[{q}] = measure qubit[{q}]; \n"
+
+    def measure_all(self):
+        """
+        Measure all qubits.
+        """
+        self.qasm += f"bit = measure qubit; \n"
+
+        
