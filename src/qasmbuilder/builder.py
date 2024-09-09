@@ -82,7 +82,7 @@ class Builder:
     # Redundancy: each gate addition is basically the same, so lets streamline it.
     def _two_qubit_gate(self, q1: int, q2: int, gate: str):
         self._check_qubit(q1) and self._check_qubit(q2)
-        self.qasm += f"{gate} q[{q1}] q[{q2}]; \n"
+        self.qasm += f"{gate} q[{q1}], q[{q2}]; \n"
     
     def cnot(self, control: int, target: int):
         """
